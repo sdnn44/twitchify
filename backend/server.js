@@ -3,8 +3,6 @@
 
 require("dotenv").config();
 
-const APIkey = process.env.TWITCH_API_KEY;
-
 const request = require("request");
 
 const getToken = (url, callback) => {
@@ -32,6 +30,7 @@ var accessToken = "";
 
 getToken(process.env.GET_TOKEN, (res) => {
   accessToken = res.body.access_token;
+  console.log(accessToken);
   return accessToken;
 });
 
