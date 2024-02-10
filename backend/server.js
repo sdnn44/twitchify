@@ -5,53 +5,70 @@ require("dotenv").config();
 
 const request = require("request");
 
-const getToken = (url, callback) => {
-  const options = {
-    url: process.env.GET_TOKEN,
-    json: true,
-    body: {
-      client_id: process.env.TWITCH_CLIENT_ID,
-      client_secret: process.env.TWITCH_CLIENT_SECRET,
-      grant_type: "client_credentials",
-    },
+const express = require("express");
+const app = express();
+
+const PORT = 3000; // Or any other port you prefer
+
+app.use(express.json());
+
+// Endpoint to get access token and clips
+app.get("/get-clips", (req, res) => {
+  // Function to get access token
+  const getToken = (callback) => {
+    const options = {
+      url: process.env.GET_TOKEN,
+      json: true,
+      body: {
+        client_id: process.env.TWITCH_CLIENT_ID,
+        client_secret: process.env.TWITCH_CLIENT_SECRET,
+        grant_type: "client_credentials",
+      },
+    };
+
+    request.post(options, (err, response, body) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, response.body.access_token);
+    });
   };
 
-  request.post(options, (err, res, body) => {
+  // Function to get clips using access token
+  const getClips = (accessToken, callback) => {
+    const clipOptions = {
+      url: process.env.GET_CLIPS,
+      method: "GET",
+      headers: {
+        'Client-ID': process.env.TWITCH_CLIENT_ID,
+        'Authorization': "Bearer " + accessToken,
+      },
+    };
+
+    request.get(clipOptions, (err, response, body) => {
+      if (err) {
+        return callback(err);
+      }
+      callback(null, JSON.parse(body));
+    });
+  };
+
+  // Get token and then get clips
+  getToken((err, accessToken) => {
     if (err) {
-      return console.log("Error: " + err);
+      return res.status(500).json({ error: "Failed to get access token" });
     }
-    console.log("Staus: ");
-    console.log(body);
-    callback(res);
+
+    getClips(accessToken, (err, clips) => {
+      if (err) {
+        return res.status(500).json({ error: "Failed to get clips" });
+      }
+      res.json(clips);
+    });
   });
-};
-
-var accessToken = "";
-
-getToken(process.env.GET_TOKEN, (res) => {
-  accessToken = res.body.access_token;
-  console.log(accessToken);
-  return accessToken;
 });
 
-const getClips = (url, accessToken, callback) => {
-  const clipOptions = {
-    url: process.env.GET_CLIPS,
-    method: "GET",
-    headers: {
-      "Client-ID": process.env.TWITCH_CLIENT_ID,
-      Authorization: "Bearer " + accessToken,
-    },
-  };
-
-  request.get(clipOptions, (err, res, body) => {
-    if (err) {
-      return console.log("Error: " + err);
-    }
-    console.log(JSON.parse(body));
-  });
-};
-
-setTimeout(() => {
-  getClips(process.env.GET_CLIPS, accessToken, (response) => {});
-}, 1000);
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
