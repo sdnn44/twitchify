@@ -3,6 +3,7 @@ import { useGlobalState } from "@/app/context/globalContextProvider";
 import Image from "next/image";
 import DisplayClip from "../ClipModals/DisplayClip";
 import Modal from "../ClipModals/Modal";
+import Categories from "./Categories/Categories";
 
 function Header() {
   const { modal } = useGlobalState();
@@ -22,7 +23,8 @@ function Header() {
           clips
         </h1>
       </div>
-      <div className="lg:flex-1 relative w-full h-[50vh] justify-center border-2">
+      <div className="lg:flex-2 relative w-full h-[50vh] justify-center">
+        <Categories />
       </div>
       {modal && <Modal content={<DisplayClip />} />}
       

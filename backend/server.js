@@ -37,7 +37,7 @@ app.get("/get-clips", (req, res) => {
   // Function to get clips using access token
   const getClips = (accessToken, callback) => {
     const clipOptions = {
-      url: process.env.GET_CLIPS,
+      url: "https://api.twitch.tv/helix/clips?game_id=743",
       method: "GET",
       headers: {
         'Client-ID': process.env.TWITCH_CLIENT_ID,
