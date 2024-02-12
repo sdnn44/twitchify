@@ -23,7 +23,8 @@ function Header() {
           clips
         </h1>
       </div>
-      <div className="lg:flex-2 relative w-full h-[50vh] justify-center">
+      {/* <div className="lg:flex-2 flex  w-full h-[50vh] justify-center"> */}
+      <div className="flex-2 flex flex-col gap-10">
         <Categories />
       </div>
       {modal && <Modal content={<DisplayClip />} />}

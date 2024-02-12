@@ -1,4 +1,5 @@
 "use client"
+import { useGlobalState } from '@/app/context/globalContextProvider';
 import Image from 'next/image';
 import React from 'react'
 
@@ -12,15 +13,27 @@ export interface GameCategoryProp {
 interface Prop {
   game: GameCategoryProp;
   index: number;
+  onGameClick: (gameId: string) => void;
 }
 
-const GameCategory = ({ game }: Prop) => {
+const GameCategory = ({ game, onGameClick }: Prop) => {
+
+  const { setGameId, setLoading } = useGlobalState();
+
   return (
     <div className='flex flex-col'>
-      <div className="flex items-center">
+      <div
+        className="flex items-center"
+        onClick={() => {
+          setGameId(game.game_id);
+          onGameClick(game.game_id);
+          setLoading(true);
+        }
+        }
+      >
         <div className='absolute bg-purple-400 w-28 h-40'></div>
         <Image
-          src="/justchatting.jpg"
+          src={game.game_img}
           alt="logo"
           width={120}
           height={100}
