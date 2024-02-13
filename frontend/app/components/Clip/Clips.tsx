@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import { useGlobalState } from "@/app/context/globalContextProvider";
 import { fetchClips, handleGameClick } from "@/app/api/fetchClips";
 import Loader from "../Loader/Loader";
+import Filter from "./Fillters/Filter";
 
 interface ClipProps {
     title: string;
@@ -76,7 +77,8 @@ const Clips = ({ title, clips }: ClipProps) => {
 
     return (
         <main className="sm:p-6 py-16 px-8 flex flex-col gap-10">
-            <h2 className="text-l text-white font-bold">{title}</h2>
+            <h2 className="text-lg text-white font-bold">{title}</h2>
+            <Filter />
             {isLoading ? (<Loader />) : (
                 <>
                     <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
