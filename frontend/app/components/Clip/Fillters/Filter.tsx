@@ -1,27 +1,36 @@
 import React, { useState } from 'react'
 import FilterListIcon from '@mui/icons-material/FilterList';
+import { subDays, format, startOfDay } from 'date-fns';
+import { useGlobalState } from '@/app/context/globalContextProvider';
+import { handleGameClick } from '@/app/api/fetchClips';
+
+const startOfCurrentDate = startOfDay(new Date());
 
 const PERIOD = [
     {
         id: 1,
-        time: "Today"
+        periodLabel: "Today",
+        date: format(startOfCurrentDate, "yyyy-MM-dd'T'HH:mm:ss'Z'")
     },
     {
         id: 2,
-        time: "7 days"
+        periodLabel: "7 days",
+        date: format(subDays(startOfCurrentDate, 7), "yyyy-MM-dd'T'HH:mm:ss'Z'")
     },
     {
         id: 3,
-        time: "30 days"
+        periodLabel: "30 days",
+        date: format(subDays(startOfCurrentDate, 30), "yyyy-MM-dd'T'HH:mm:ss'Z'")
     },
     {
         id: 4,
-        time: "All time"
+        periodLabel: "All time",
     }
 ];
 
 const Filter = () => {
 
+    const { gameId, setPeriodLabel, setPeriodTime, setLoading } = useGlobalState();
     const [activeFilter, setActiveFilter] = useState(4);
 
     const handleFilterClick = (id: number) => {
@@ -40,9 +49,15 @@ const Filter = () => {
                         : 'hover:bg-violet-300 hover:text-violet-800'
                         }
                     `}
-                    onClick={() => handleFilterClick(option.id)}
+                    onClick={() => {
+                        handleFilterClick(option.id);
+                        setPeriodLabel(option.periodLabel);
+                        setPeriodTime(option.date)
+                        // handleGameClick(gameId, option.periodLabel, option.date);
+                        setLoading(true);
+                    }}
                 >
-                    {option.time}
+                    {option.periodLabel}
                 </div>
             ))}
         </div>

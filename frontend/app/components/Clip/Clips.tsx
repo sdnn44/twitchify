@@ -15,65 +15,28 @@ interface ClipProps {
 
 const Clips = ({ title, clips }: ClipProps) => {
 
-    const { gameId, setClips, isLoading, setLoading } = useGlobalState();
+    const { gameId, periodLabel, periodTime, setClips, isLoading, setLoading } = useGlobalState();
 
     // let clips = [];
-
     useEffect(() => {
-
-        if (clips.length === 0) {
-
-            const fetchData = async () => {
-                try {
+        const fetchData = async () => {
+            try {
+                if (clips.length === 0) {
                     const response = await fetchClips();
                     setClips(response.data);
-                    setLoading(false);
-                } catch (error) {
-                    console.error('Error fetching clips:', error);
-                }
-            };
-
-            fetchData();
-        } else {
-            const fetchData = async () => {
-                try {
-                    const response = await handleGameClick(gameId);
+                } else {
+                    const response = await handleGameClick(gameId, periodLabel, periodTime);
+                    console.log(response.data);
                     setClips(response.data);
-                    setLoading(false);
-                } catch (error) {
-                    console.error('Error fetching clips:', error);
                 }
-            };
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching clips:', error);
+            }
+        };
 
-            fetchData();
-        }
-    }, [gameId]);
-
-
-    // if (clip.length === 0) {
-    //     try {
-    //         // Fetch clips data
-    //         clips = await fetchClips();
-    //         // Check if data is received and is an array
-    //         if (!Array.isArray(clips.data)) {
-    //             throw new Error('Data is not in the expected format');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching or processing data:', error);
-    //     }
-    // } else {
-    //     try {
-    //         // Fetch clips data
-    //         clips = await fetchClips();
-    //         // Check if data is received and is an array
-    //         if (!Array.isArray(clips.data)) {
-    //             throw new Error('Data is not in the expected format');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching or processing data:', error);
-    //     }
-    // }
-
+        fetchData();
+    }, [gameId, periodLabel]);
 
     return (
         <main className="sm:p-6 py-16 px-8 flex flex-col gap-10">

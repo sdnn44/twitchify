@@ -39,7 +39,7 @@ function ClipCard({ clip }: Prop) {
           alt={clip.broadcaster_name}
           width={300}
           height={250}
-          className="rounded-xl hover:scale-110 transition ease-in duration-300 cursor-pointer"
+          className="w-full h-auto rounded-xl hover:scale-110 transition ease-in duration-300 cursor-pointer"
         />
         <div className="bg-[#161921e7] text-xs font-bold p-1 px-3 rounded-xl absolute top-1 left-1">
           <p className=""><RemoveRedEyeIcon sx={{ fontSize: 14, mr: 1 }} />{clip.view_count.toLocaleString()}</p>

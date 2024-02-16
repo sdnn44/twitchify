@@ -5,12 +5,16 @@ export const GlobalContext = createContext();
 export const GlobalUpdateContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
-
   const [clips, setClips] = useState([]);
-  const [gameId, setGameId] = useState("");
+  const [gameId, setGameId] = useState("743");
+  const [periodLabel, setPeriodLabel] = useState("");
+  const [periodTime, setPeriodTime] = useState("");
   const [modal, setModal] = useState(false);
   const [embedURL, setEmbedURL] = useState("");
   const [isLoading, setLoading] = useState(true);
+
+  // console.log("Context");
+  // console.log(clips);
 
   const openModal = () => {
     setModal(true);
@@ -27,13 +31,17 @@ export const GlobalProvider = ({ children }) => {
         setClips,
         gameId,
         setGameId,
+        periodLabel,
+        setPeriodLabel,        
+        periodTime,
+        setPeriodTime,
         modal,
         openModal,
         closeModal,
         embedURL,
         setEmbedURL,
         isLoading,
-        setLoading
+        setLoading,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>

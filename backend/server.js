@@ -2,7 +2,7 @@
 // dotenv.config();
 
 require("dotenv").config();
-var cors = require('cors');
+var cors = require("cors");
 
 const request = require("request");
 
@@ -49,8 +49,8 @@ app.get("/get-clips", (req, res) => {
       url: "https://api.twitch.tv/helix/clips?game_id=743",
       method: "GET",
       headers: {
-        'Client-ID': process.env.TWITCH_CLIENT_ID,
-        'Authorization': "Bearer " + accessToken,
+        "Client-ID": process.env.TWITCH_CLIENT_ID,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
@@ -77,59 +77,67 @@ app.get("/get-clips", (req, res) => {
   });
 });
 
-app.get("/get-clips/:gameId", (req, res) => {
+app.get("/get-clips/:gameId/:periodTime?", async (req, res) => {
   const gameId = req.params.gameId;
+  const periodTime = req.params.periodTime;
 
-  const getToken = (callback) => {
-    const options = {
-      url: process.env.GET_TOKEN,
-      json: true,
-      body: {
-        client_id: process.env.TWITCH_CLIENT_ID,
-        client_secret: process.env.TWITCH_CLIENT_SECRET,
-        grant_type: "client_credentials",
-      },
-    };
+  const getToken = () => {
+    return new Promise((resolve, reject) => {
+      const options = {
+        url: process.env.GET_TOKEN,
+        json: true,
+        body: {
+          client_id: process.env.TWITCH_CLIENT_ID,
+          client_secret: process.env.TWITCH_CLIENT_SECRET,
+          grant_type: "client_credentials",
+        },
+      };
 
-    request.post(options, (err, response, body) => {
-      if (err) {
-        return callback(err);
-      }
-      callback(null, response.body.access_token);
+      request.post(options, (err, response, body) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(response.body.access_token);
+        }
+      });
     });
   };
 
   // Function to get clips using game ID
-  const getClipsForGame = (gameId, accessToken, callback) => {
+  const getClipsForGame = async (gameId, accessToken, clipOptionsUrl) => {
     const clipOptions = {
-      url: `https://api.twitch.tv/helix/clips?game_id=${gameId}`,
+      url: clipOptionsUrl,
       method: "GET",
       headers: {
-        'Client-ID': process.env.TWITCH_CLIENT_ID,
-        'Authorization': "Bearer " + accessToken,
+        "Client-ID": process.env.TWITCH_CLIENT_ID,
+        Authorization: "Bearer " + accessToken,
       },
     };
 
-    request.get(clipOptions, (err, response, body) => {
-      if (err) {
-        return callback(err);
-      }
-      callback(null, JSON.parse(body));
+    return new Promise((resolve, reject) => {
+      request.get(clipOptions, (err, response, body) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(JSON.parse(body));
+        }
+      });
     });
   };
 
-  getToken((err, accessToken) => {
-    if (err) {
-      return res.status(500).json({ error: "Failed to get access token" });
-    }
+  try {
+    const accessToken = await getToken();
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=${gameId}`;
 
-    getClipsForGame(gameId, accessToken, (err, clips) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to get clips" });
-      }
-      res.json(clips);
-    });
-  });
+    if (periodTime) {
+      clipOptionsUrl += `&started_at=${periodTime}`;
+    }
+    const clips = await getClipsForGame(gameId, accessToken, clipOptionsUrl);
+    res.json(clips);
+  } catch (error) {
+    console.error("Error fetching clips:", error);
+    res.status(500).json({ error: "Failed to get clips" });
+  }
 });
 
 // Start the server

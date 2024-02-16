@@ -12,7 +12,7 @@ const Categories = () => {
 
             <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-5">
                 {games.map((item: GameCategoryProp, index: number) => (
-                    <GameCategory key={item.id} game={item} onGameClick={handleGameClick} index={index} />
+                    <GameCategory key={item.id} game={item} index={index} /> /**onGameClick={handleGameClick} index={index} /> **/
                 ))}
             </section>
         </main>

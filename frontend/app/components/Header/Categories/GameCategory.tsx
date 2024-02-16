@@ -1,4 +1,5 @@
 "use client"
+import { handleGameClick } from '@/app/api/fetchClips';
 import { useGlobalState } from '@/app/context/globalContextProvider';
 import Image from 'next/image';
 import React from 'react'
@@ -13,10 +14,10 @@ export interface GameCategoryProp {
 interface Prop {
   game: GameCategoryProp;
   index: number;
-  onGameClick: (gameId: string) => void;
+  // onGameClick: (gameId: string) => void;
 }
 
-const GameCategory = ({ game, onGameClick }: Prop) => {
+const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
 
   const { setGameId, setLoading } = useGlobalState();
 
@@ -26,7 +27,7 @@ const GameCategory = ({ game, onGameClick }: Prop) => {
         className="flex items-center"
         onClick={() => {
           setGameId(game.game_id);
-          onGameClick(game.game_id);
+          handleGameClick(game.game_id);
           setLoading(true);
         }
         }
@@ -37,7 +38,7 @@ const GameCategory = ({ game, onGameClick }: Prop) => {
           alt="logo"
           width={120}
           height={100}
-          className="object-contain my-2 hover:translate-x-1 hover:-translate-y-1 z-10 transition ease-in cursor-pointer"
+          className="object-contain w-full h-auto my-2 hover:translate-x-1 hover:-translate-y-1 z-10 transition ease-in cursor-pointer"
         />
       </div>
 
