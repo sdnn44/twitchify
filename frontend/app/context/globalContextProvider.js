@@ -6,15 +6,13 @@ export const GlobalUpdateContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [clips, setClips] = useState([]);
+  const [cursor, setCursor] = useState("");
   const [gameId, setGameId] = useState("743");
   const [periodLabel, setPeriodLabel] = useState("");
   const [periodTime, setPeriodTime] = useState("");
   const [modal, setModal] = useState(false);
   const [embedURL, setEmbedURL] = useState("");
   const [isLoading, setLoading] = useState(true);
-
-  // console.log("Context");
-  // console.log(clips);
 
   const openModal = () => {
     setModal(true);
@@ -29,6 +27,8 @@ export const GlobalProvider = ({ children }) => {
       value={{
         clips,
         setClips,
+        cursor,
+        setCursor,
         gameId,
         setGameId,
         periodLabel,

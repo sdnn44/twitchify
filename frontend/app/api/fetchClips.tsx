@@ -1,10 +1,22 @@
-// "use server";
+"use server";
 
 export async function fetchClips() {
     try {
         const response = await fetch('http://localhost:3000/get-clips');
         const data = await response.json();
-        // Process the received clips data here
+        console.log('Clips received:', data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching clips:', error);
+        throw error;
+    }
+}
+
+export async function fetchNextPage(gameId: string, cursor: string) {
+    try {
+        const response = await fetch(`http://localhost:3000/get-page/${gameId}/${cursor}`);
+        const data = await response.json();
+        console.log('Clips received:', data);
         return data;
     } catch (error) {
         console.error('Error fetching clips:', error);
@@ -37,10 +49,9 @@ export async function handleGameClick(gameId: string, periodLabel?: string, peri
             throw new Error('Failed to fetch clips');
         }
         const data = await response.json();
+        console.log('Clips received:', data);
         return data;
-        // Handle the fetched data here
     } catch (error) {
         console.error('Error fetching clips:', error);
-        // Handle error
     }
 };

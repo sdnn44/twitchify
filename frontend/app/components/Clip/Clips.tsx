@@ -15,7 +15,7 @@ interface ClipProps {
 
 const Clips = ({ title, clips }: ClipProps) => {
 
-    const { gameId, periodLabel, periodTime, setClips, isLoading, setLoading } = useGlobalState();
+    const { gameId, periodLabel, periodTime, setClips, setCursor, isLoading, setLoading } = useGlobalState();
 
     // let clips = [];
     useEffect(() => {
@@ -24,17 +24,17 @@ const Clips = ({ title, clips }: ClipProps) => {
                 if (clips.length === 0) {
                     const response = await fetchClips();
                     setClips(response.data);
+                    setCursor(response.pagination.cursor);
                 } else {
                     const response = await handleGameClick(gameId, periodLabel, periodTime);
-                    console.log(response.data);
                     setClips(response.data);
+                    setCursor(response.pagination.cursor);
                 }
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching clips:', error);
             }
         };
-
         fetchData();
     }, [gameId, periodLabel]);
 
