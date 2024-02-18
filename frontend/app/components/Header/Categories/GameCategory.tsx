@@ -1,5 +1,5 @@
 "use client"
-import { handleGameClick } from '@/app/api/fetchClips';
+import { fetchSpecificGame } from '@/app/api/fetchClips';
 import { useGlobalState } from '@/app/context/globalContextProvider';
 import Image from 'next/image';
 import React from 'react'
@@ -27,7 +27,7 @@ const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
         className="flex items-center"
         onClick={() => {
           setGameId(game.game_id);
-          handleGameClick(game.game_id);
+          fetchSpecificGame(game.game_id);
           setLoading(true);
         }
         }

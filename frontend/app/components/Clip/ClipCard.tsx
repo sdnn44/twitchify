@@ -4,6 +4,7 @@ import Image from "next/image";
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import formatTime from '../../utils/durationFormat';
 import { useGlobalState } from "@/app/context/globalContextProvider";
+import { motion } from "framer-motion";
 
 export interface ClipProp {
   id: string;
@@ -22,16 +23,30 @@ interface Prop {
   index: number;
 }
 
-function ClipCard({ clip }: Prop) {
+const VARIANTS = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 }
+}
+
+function ClipCard({ clip, index }: Prop) {
   const { openModal, setEmbedURL } = useGlobalState();
 
   return (
-    <div
+
+    <motion.div
+      variants={VARIANTS}
+      initial="hidden"
+      animate="visible"
+      transition={{
+        delay: ((index % 20) * 0.2),
+        ease: 'easeInOut',
+        duration: 0.5
+      }}
+      viewport={{ amount: 0 }}
       className="max-w-sm rounded relative w-full z-0"
       onClick={() => {
         openModal();
         setEmbedURL(clip.embed_url);
-        console.log(clip.embed_url);
       }}>
       <div className="relative w-full overflow-hidden">
         <Image
@@ -72,7 +87,7 @@ function ClipCard({ clip }: Prop) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

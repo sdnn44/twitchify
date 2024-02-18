@@ -1,30 +1,35 @@
 "use server";
 
+import axios from "axios";
+
 export async function fetchClips() {
     try {
-        const response = await fetch('http://localhost:3000/get-clips');
-        const data = await response.json();
-        console.log('Clips received:', data);
-        return data;
+        const response = await axios.get('http://localhost:3000/get-clips');
+        // const data = await response.json();
+        console.log('Clips received:', response.data);
+        return response.data;
     } catch (error) {
         console.error('Error fetching clips:', error);
         throw error;
     }
 }
 
-export async function fetchNextPage(gameId: string, cursor: string) {
+export async function fetchNextPage(gameId: string, cursor: string, periodTime?: string) {
+    const url = periodTime
+        ? `http://localhost:3000/get-page/${gameId}/${cursor}/${periodTime}`
+        : `http://localhost:3000/get-page/${gameId}/${cursor}`;
     try {
-        const response = await fetch(`http://localhost:3000/get-page/${gameId}/${cursor}`);
-        const data = await response.json();
-        console.log('Clips received:', data);
-        return data;
+        const response = await axios.get(url);
+        // const data = await response.json();
+        console.log('Clips received:', response.data);
+        return response.data;
     } catch (error) {
         console.error('Error fetching clips:', error);
         throw error;
     }
 }
 
-export async function handleGameClick(gameId: string, periodLabel?: string, periodTime?: string) {
+export async function fetchSpecificGame(gameId: string, periodLabel?: string, periodTime?: string) {
     // 2017-11-30T22:34:18Z
     let url = `http://localhost:3000/get-clips/${gameId}`;
     if (periodTime) {
@@ -44,13 +49,13 @@ export async function handleGameClick(gameId: string, periodLabel?: string, peri
     }
 
     try {
-        const response = await fetch(url);
-        if (!response.ok) {
+        const response = await axios.get(url);
+        if (response.status !== 200) {
             throw new Error('Failed to fetch clips');
         }
-        const data = await response.json();
-        console.log('Clips received:', data);
-        return data;
+        // const data = await response.json();
+        console.log('Clips received:', response.data);
+        return response.data;
     } catch (error) {
         console.error('Error fetching clips:', error);
     }

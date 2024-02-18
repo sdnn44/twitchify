@@ -7,7 +7,7 @@ import { useInView } from "react-intersection-observer";
 import ClipCard, { ClipProp } from "../Clip/ClipCard";
 
 function LoadMore() {
-  const { gameId, cursor, setCursor } = useGlobalState();
+  const { gameId, periodTime, cursor, setCursor } = useGlobalState();
   const { ref, inView } = useInView();
 
   const [data, setData] = useState<ClipProp[]>([]);
@@ -17,7 +17,7 @@ function LoadMore() {
 
       const fetchData = async () => {
         try {
-          const response = await fetchNextPage(gameId, cursor);
+          const response = await fetchNextPage(gameId, cursor, periodTime);
           setData([...data, ...response.data])
           setCursor(response.pagination.cursor);
         } catch (error) {

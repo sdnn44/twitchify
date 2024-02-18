@@ -4,7 +4,7 @@ import ClipCard, { ClipProp } from "@/app/components/Clip/ClipCard";
 import LoadMore from "@/app/components/LoadMore/LoadMore";
 import React, { useEffect } from 'react'
 import { useGlobalState } from "@/app/context/globalContextProvider";
-import { fetchClips, handleGameClick } from "@/app/api/fetchClips";
+import { fetchClips, fetchSpecificGame } from "@/app/api/fetchClips";
 import Loader from "../Loader/Loader";
 import Filter from "./Fillters/Filter";
 
@@ -26,7 +26,7 @@ const Clips = ({ title, clips }: ClipProps) => {
                     setClips(response.data);
                     setCursor(response.pagination.cursor);
                 } else {
-                    const response = await handleGameClick(gameId, periodLabel, periodTime);
+                    const response = await fetchSpecificGame(gameId, periodLabel, periodTime);
                     setClips(response.data);
                     setCursor(response.pagination.cursor);
                 }

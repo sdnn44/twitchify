@@ -1,5 +1,5 @@
 "use client";
-import { handleGameClick } from '@/app/api/fetchClips';
+// import { handleGameClick } from '@/app/api/fetchClips';
 import React from 'react'
 import { games } from '../../../../public/games';
 import GameCategory, { GameCategoryProp } from './GameCategory';
