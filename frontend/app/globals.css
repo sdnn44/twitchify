@@ -4,15 +4,113 @@
 
 @import "tailwindcss/utilities";
 
+@font-face {
+  font-family: 'Poppins-Regular';
+  src: local('Poppins-Regular'), url(../public/fonts/Poppins/Poppins-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Inter-Regular';
+  src: local('Inter-Regular'), url(../public/fonts/Inter/static/Inter-Regular.ttf) format('truetype');
+}
+
 body {
   background-color: #000;
 }
 
-.red-gradient {
-  background: linear-gradient(92deg, #f156ffb2 2.87%, #930ca0b2 96.18%);
+.poppins-regular {
+  font-family: 'Inter-Regular';
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.violet-gradient {
+  background: linear-gradient(92deg, #6b21a8 2.87%, #930ca0b2 96.18%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.logo-animation {
+  width: 100%;
+  height: 70%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  list-style: none;
+  overflow: hidden;
+  /* z-index: 0; */
+}
+
+.logo-animation li {
+  position: absolute;
+  bottom: -2rem;
+  width: 30px;
+  height: 30px;
+  animation: logo 15s infinite;
+  transition-timing-function: linear;
+}
+.logo-animation li:nth-child(1) {
+  left: 15%;
+}
+.logo-animation li:nth-child(2) {
+  left: 40%;
+  animation-delay: 5s;
+  animation-duration: 5s;
+}
+.logo-animation li:nth-child(3) {
+  left: 25%;
+  animation-delay: 2s;
+  animation-duration: 4s;
+}
+.logo-animation li:nth-child(4) {
+  left: 10%;
+  animation-delay: 4s;
+  animation-duration: 6s;
+}
+.logo-animation li:nth-child(5) {
+  left: 25%;
+  animation-delay: 3s;
+  animation-duration: 5s;
+}
+.logo-animation li:nth-child(6) {
+  left: 15%;
+  animation-delay: 1s;
+  animation-duration: 12s;
+}
+.logo-animation li:nth-child(7) {
+  left: 5%;
+  animation-delay: 4s;
+  animation-duration: 8s;
+}
+.logo-animation li:nth-child(8) {
+  left: 30%;
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+.logo-animation li:nth-child(9) {
+  left: 20%;
+  animation-delay: 3s;
+  animation-duration: 3s;
+}
+.logo-animation li:nth-child(10) {
+  left: 18%;
+  animation-delay: 4s;
+  animation-duration: 15s;
+}
+
+
+@keyframes logo {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0eg);
+  }
+  100% {
+    opacity: 0.5;
+    transform: translateY(-800px) rotate(-180deg);
+  }
+  
 }
 
 :root {

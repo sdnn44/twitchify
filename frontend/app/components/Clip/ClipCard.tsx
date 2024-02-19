@@ -43,7 +43,7 @@ function ClipCard({ clip, index }: Prop) {
         duration: 0.5
       }}
       viewport={{ amount: 0 }}
-      className="max-w-sm rounded relative w-full z-0"
+      className="rounded relative w-full z-0 shadow-violet-500/80 shadow" /*max-w-sm*/
       onClick={() => {
         openModal();
         setEmbedURL(clip.embed_url);
@@ -63,7 +63,7 @@ function ClipCard({ clip, index }: Prop) {
           <p>{formatTime(clip.duration)}</p>
         </div>
       </div>
-      <div className="py-1 flex flex-row gap-1 bg-[#161921]">
+      <div className="p-1 flex flex-row gap-1 bg-[#161921]">
         <div className="flex">
           <Image
             src="/chess.jpg"
@@ -76,7 +76,7 @@ function ClipCard({ clip, index }: Prop) {
         <div className="flex flex-col justify-between items-center gap-1">
           <div className="py-1 px-2 rounded-sm h-full w-full">
             <p className="text-white text-sm font-bold w-full capitalize py-1">
-              {clip.title.length > 25 ? `${clip.title.slice(0, 20)}...` : clip.title}
+              {clip.title.length > 20 ? `${clip.title.slice(0, 20)}...` : clip.title}
             </p>
             <p className="text-white text-xs line-clamp-1 w-full">
               {clip.broadcaster_name}

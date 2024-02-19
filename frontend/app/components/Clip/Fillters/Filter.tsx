@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { subDays, format, startOfDay } from 'date-fns';
 import { useGlobalState } from '@/app/context/globalContextProvider';
-import { handleGameClick } from '@/app/api/fetchClips';
+// import { handleGameClick } from '@/app/api/fetchClips';
 
 const startOfCurrentDate = startOfDay(new Date());
 
@@ -38,13 +38,13 @@ const Filter = () => {
     };
 
     return (
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row items-center overflow-x-auto">
             <FilterListIcon />
             <h2 className='mx-2'>Popular filters:</h2>
             {PERIOD.map((option) => (
                 <div
                     key={option.id}
-                    className={`flex text-sm font-bold rounded-3xl p-1 px-3 mx-1 cursor-pointer border-2 border-violet-400 hover:bg-violet-300 transition duration-300 ease-in hover:text-violet-800 ${option.id === activeFilter
+                    className={`flex justify-center min-w-28 text-sm font-bold rounded-xl p-1 px-3 mx-1 cursor-pointer border-2 border-violet-400 hover:bg-violet-300 transition duration-300 ease-in hover:text-violet-800 ${option.id === activeFilter
                         ? 'bg-violet-300 text-violet-800'
                         : 'hover:bg-violet-300 hover:text-violet-800'
                         }
