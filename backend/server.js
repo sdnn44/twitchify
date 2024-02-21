@@ -104,6 +104,36 @@ app.get("/get-page/:gameId/:cursor/:periodTime?", async (req, res) => {
   }
 });
 
+app.get("/get-channel/:searchPhrase", async (req, res) => {
+  try {
+    const { searchPhrase } = req.params;
+    const accessToken = await getToken();
+    let clipOptionsUrl = `https://api.twitch.tv/helix/search/channels?query=${searchPhrase}`;
+
+    const clips = await twitchRequest(clipOptionsUrl, accessToken);
+    res.json(clips);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/get-clips-by-broadcasterid/:broadcasterId/:periodTime?", async (req, res) => {
+  try {
+    const { broadcasterId, periodTime } = req.params;
+    const accessToken = await getToken();
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`;
+
+    if (periodTime) {
+      clipOptionsUrl += `&started_at=${periodTime}`;
+    }
+
+    const clips = await twitchRequest(clipOptionsUrl, accessToken);
+    res.json(clips);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

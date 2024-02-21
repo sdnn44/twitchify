@@ -60,3 +60,34 @@ export async function fetchSpecificGame(gameId: string, periodLabel?: string, pe
         console.error('Error fetching clips:', error);
     }
 };
+
+export async function fetchClipsByStreamerId(broadcasterId: string, periodLabel?: string, periodTime?: string) {
+    let url = `http://localhost:3000/get-clips-by-broadcasterid/${broadcasterId}`;
+    if (periodTime) {
+        switch (periodLabel) {
+            case 'Today':
+                url += `/${periodTime}`
+                break;
+            case '7 days':
+                url += `/${periodTime}`
+                break;
+            case '30 days':
+                url += `/${periodTime}`
+                break;
+            default:
+                url = ``;
+        }
+    }
+
+    try {
+        const response = await axios.get(url);
+        if (response.status !== 200) {
+            throw new Error('Failed to fetch clips');
+        }
+        // const data = await response.json();
+        console.log('Clips received:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching clips:', error);
+    }
+}

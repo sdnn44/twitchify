@@ -23,7 +23,6 @@ function Header() {
           Daily dose of <span className="violet-gradient">Twitch.tv </span>
           clips
         </h1>
-
         <AnimateLogo />
       </div>
       {/* <div className="lg:flex-2 flex  w-full h-[50vh] justify-center"> */}

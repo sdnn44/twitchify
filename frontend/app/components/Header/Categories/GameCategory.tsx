@@ -20,7 +20,7 @@ interface Prop {
 
 const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
 
-  const { setGameId, setLoading } = useGlobalState();
+  const { setGameId, setStreamerId, setLoading } = useGlobalState();
 
   return (
     <motion.div
@@ -33,6 +33,7 @@ const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
         onClick={() => {
           setGameId(game.game_id);
           fetchSpecificGame(game.game_id);
+          setStreamerId("");
           setLoading(true);
         }
         }
