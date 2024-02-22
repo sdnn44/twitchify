@@ -48,7 +48,7 @@ const Clips = ({ title, clips }: ClipProps) => {
     return (
         <main className="sm:p-6 py-16 px-8 flex flex-col gap-10">
             <h2 className="text-lg text-white font-bold">{title}</h2>
-            <div className="flex flex-col lg:flex-row justify-between max-h-10 z-10 border-2">
+            <div className="flex flex-col lg:flex-row justify-between max-h-10 z-10">
                 <Filter />
                 <ClipLanguage />
                 <Searchbar />

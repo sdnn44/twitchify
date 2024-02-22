@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { motion, Variants } from "framer-motion";
+import { useGlobalState } from '@/app/context/globalContextProvider';
 
 const itemVariants: Variants = {
     open: {
@@ -11,6 +12,7 @@ const itemVariants: Variants = {
 };
 
 const ClipLanguage = () => {
+    const { clipLanguage, setClipLanguage } = useGlobalState();
     const [isOpen, setIsOpen] = useState(false);
     return (
         <motion.nav
@@ -21,9 +23,9 @@ const ClipLanguage = () => {
             <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOpen(!isOpen)}
-                className="appearance-none bg-[#0F1117ee] shadow-sm shadow-violet-700 text-white border-none rounded-lg py-2 px-4 text-sm cursor-pointer w-full text-left mb-2 flex justify-between items-center"
+                className="bg-[#0F1117ee] shadow-sm shadow-violet-700 text-white border-none rounded-lg py-2 px-4 mb-2 text-sm cursor-pointer w-full min-w-36 text-left flex justify-between items-center"
             >
-                Languages
+                {clipLanguage ? clipLanguage : 'Languages'}
                 <motion.div
                     variants={{
                         open: { rotate: 180 },
@@ -32,13 +34,14 @@ const ClipLanguage = () => {
                     transition={{ duration: 0.2 }}
                     style={{ originY: 0.55 }}
                 >
-                    <svg width="15" height="15" viewBox="0 0 20 20" className="fill-current text-white">
+                    <svg width="10" height="10" viewBox="0 0 20 20" className="fill-current text-white mx-2">
                         <path d="M0 7 L 20 7 L 10 16" />
                     </svg>
                 </motion.div>
             </motion.button>
             <motion.ul
-                className="pointer-events-none flex flex-col gap-2.5 bg-[#0F1117ee] shadow-violet-700 p-2.5 rounded-lg"
+                onClick={() => setIsOpen(!isOpen)}
+                className="flex flex-col bg-[#0F1117ee] shadow-violet-700 rounded-lg text-[12px]"
                 variants={{
                     open: {
                         clipPath: "inset(0% 0% 0% 0% round 10px)",
@@ -61,11 +64,31 @@ const ClipLanguage = () => {
                 }}
                 style={{ pointerEvents: isOpen ? "auto" : "none" }}
             >
-                <motion.li variants={itemVariants} className='cursor-pointer hover:bg-purple-600'>Item 1 </motion.li>
-                <motion.li variants={itemVariants}>Item 2 </motion.li>
-                <motion.li variants={itemVariants}>Item 3 </motion.li>
-                <motion.li variants={itemVariants}>Item 4 </motion.li>
-                <motion.li variants={itemVariants}>Item 5 </motion.li>
+                <motion.li variants={itemVariants}
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
+                    onClick={() => setClipLanguage("English")}>
+                    English
+                </motion.li>
+                <motion.li variants={itemVariants}
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
+                    onClick={() => setClipLanguage("Polish")}>
+                    Polish
+                </motion.li>
+                <motion.li variants={itemVariants}
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
+                    onClick={() => setClipLanguage("German")}>
+                    German
+                </motion.li>
+                <motion.li variants={itemVariants}
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
+                    onClick={() => setClipLanguage("French")}>
+                    French
+                </motion.li>
+                <motion.li variants={itemVariants}
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
+                    onClick={() => setClipLanguage("Turkish")}>
+                    Turkish
+                </motion.li>
             </motion.ul>
         </motion.nav>
     );

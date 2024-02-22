@@ -73,7 +73,7 @@ const Searchbar = () => {
             layout
             transition={{ type: "spring", damping: 22, stiffness: 150 }}
             // transition={{ type: "spring", stiffness: 100, damping: 15 }}
-            style={{ height: isExpanded ? "15rem" : "2.5rem" }}/*position: isExpanded ? "absolute" : "relative" }*/
+            style={{ height: isExpanded ? "15rem" : "2.2rem" }}/*position: isExpanded ? "absolute" : "relative" }*/
             // transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
             onClick={() => {
                 setExpanded(!isExpanded);
@@ -81,7 +81,7 @@ const Searchbar = () => {
                 setNoStreamers(false);
             }}
             ref={parentRef}
-            className="flex flex-col w-[26rem] h-10 bg-[#0F1117ee] rounded-2xl shadow-sm shadow-violet-700">
+            className="flex flex-col w-[26rem] h-10 bg-[#0F1117ee] rounded-lg shadow-sm shadow-violet-700">
             <div className="w-full min-h-10 flex items-center px-4">
                 <span className="text-white align-middle mr-5 cursor-pointer">
                     <SearchIcon sx={{ fontSize: "23px" }} />
