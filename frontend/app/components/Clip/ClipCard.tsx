@@ -13,6 +13,7 @@ export interface ClipProp {
   title: string;
   creator_name: string;
   game_id: number;
+  language: string;
   duration: number;
   view_count: number;
   embed_url: string;

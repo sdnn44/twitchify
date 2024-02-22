@@ -1,5 +1,5 @@
 "use client";
-import { fetchNextPage } from "@/app/api/fetchClips";
+import { fetchNextPageForGame, fetchNextPageForStreamer } from "@/app/api/fetchClips";
 import { useGlobalState } from "@/app/context/globalContextProvider";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -7,18 +7,23 @@ import { useInView } from "react-intersection-observer";
 import ClipCard, { ClipProp } from "../Clip/ClipCard";
 
 function LoadMore() {
-  const { gameId, periodTime, cursor, setCursor } = useGlobalState();
+  const { gameId, streamerId, periodTime, cursor, setCursor } = useGlobalState();
   const { ref, inView } = useInView();
 
   const [data, setData] = useState<ClipProp[]>([]);
+  const [shouldFilterByLanguage, setShouldFilterByLanguage] = useState(false);
 
   useEffect(() => {
     if (inView) {
-
       const fetchData = async () => {
         try {
-          const response = await fetchNextPage(gameId, cursor, periodTime);
-          setData([...data, ...response.data])
+          let response: { data: any; pagination: { cursor: any; }; };
+          if (streamerId) {
+            response = await fetchNextPageForStreamer(streamerId, cursor, periodTime);
+          } else {
+            response = await fetchNextPageForGame(gameId, cursor, periodTime);
+          }
+          setData(prevData => [...prevData, ...response.data])
           setCursor(response.pagination.cursor);
         } catch (error) {
           console.error('Error fetching clips:', error);
@@ -30,14 +35,21 @@ function LoadMore() {
     }
   }, [inView, data]);
 
+  
+  const toggleFilter = () => setShouldFilterByLanguage(!shouldFilterByLanguage); // Toggle filter
+
+  const filteredClips = shouldFilterByLanguage
+    ? data.filter((item: ClipProp) => item.language === 'pl')
+    : data;
+
   return (
     <>
       <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-        {data.map((item: ClipProp, index: number) => (
+        {filteredClips.map((item: ClipProp, index: number) => (
           <ClipCard key={item.id} clip={item} index={index} />
         ))}
       </section>
-      <section className="flex justify-center items-center w-full">
+      <section className="flex justify-center items-center w-full border-2" onClick={toggleFilter}>
         <div ref={ref}>
           {cursor && <Image
             src="./spinner.svg"

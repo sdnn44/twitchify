@@ -134,6 +134,27 @@ app.get("/get-clips-by-broadcasterid/:broadcasterId/:periodTime?", async (req, r
   }
 });
 
+app.get("/get-page-by-broadcasterid/:broadcasterId/:cursor/:periodTime?", async (req, res) => {
+  try {
+    const { broadcasterId, cursor, periodTime } = req.params;
+    const accessToken = await getToken();
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`;
+
+    if (periodTime) {
+      clipOptionsUrl += `&started_at=${periodTime}`;
+    }
+
+    if (cursor) {
+      clipOptionsUrl += `&after=${cursor}`;
+    }
+
+    const clips = await twitchRequest(clipOptionsUrl, accessToken);
+    res.json(clips);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

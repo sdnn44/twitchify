@@ -22,7 +22,7 @@ interface Prop {
 
 function StreamerCard({ streamer, index }: Prop) {
 
-    const { setStreamerId } = useGlobalState();
+    const { setStreamerId, setSearchedStreamerName, setLoading } = useGlobalState();
 
     return (
         <div
@@ -30,7 +30,8 @@ function StreamerCard({ streamer, index }: Prop) {
             onClick={() => {
                 // setGameId(game.game_id);
                 setStreamerId(streamer.id);
-                // setLoading(true);
+                setSearchedStreamerName(streamer.display_name);
+                setLoading(true);
             }
             }>
             <Image src={streamer.thumbnail_url} width={50} height={50} className="flex rounded-full" alt={''} />

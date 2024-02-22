@@ -8,6 +8,8 @@ import { fetchClips, fetchClipsByStreamerId, fetchSpecificGame } from "@/app/api
 import Loader from "../Loader/Loader";
 import Filter from "./Fillters/Filter";
 import Searchbar from "../Searchbar/Searchbar";
+import StreamerInfoButton from "../Streamer/StreamerInfoButton";
+import ClipLanguage from "../ClipLanguage/ClipLanguage";
 
 interface ClipProps {
     title: string;
@@ -46,10 +48,12 @@ const Clips = ({ title, clips }: ClipProps) => {
     return (
         <main className="sm:p-6 py-16 px-8 flex flex-col gap-10">
             <h2 className="text-lg text-white font-bold">{title}</h2>
-            <div className="flex flex-col lg:flex-row justify-between max-h-10 z-10">
+            <div className="flex flex-col lg:flex-row justify-between max-h-10 z-10 border-2">
                 <Filter />
+                <ClipLanguage />
                 <Searchbar />
             </div>
+            {streamerId && <StreamerInfoButton />}
             {isLoading ? (<Loader />) : (
                 <>
                     <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
