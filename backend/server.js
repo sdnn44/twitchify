@@ -13,7 +13,7 @@ const PORT = 3000; // Or any other port you prefer
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:3001"],
+    origin: ["https://twitchify.vercel.app"],
     methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
     credentials: true,
   })
