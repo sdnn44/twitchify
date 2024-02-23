@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { motion, Variants } from "framer-motion";
 import { useGlobalState } from '@/app/context/globalContextProvider';
+import languageFromPrefix from '@/app/utils/languageFormat';
+import { US, PL, TR, DE, IT, FR } from 'country-flag-icons/react/3x2'
 
 const itemVariants: Variants = {
     open: {
@@ -18,14 +20,14 @@ const ClipLanguage = () => {
         <motion.nav
             initial={false}
             animate={isOpen ? "open" : "closed"}
-            className="filter drop-shadow"
+            className="filter drop-shadow max-h-1"
         >
             <motion.button
                 whileTap={{ scale: 0.97 }}
                 onClick={() => setIsOpen(!isOpen)}
                 className="bg-[#0F1117ee] shadow-sm shadow-violet-700 text-white border-none rounded-lg py-2 px-4 mb-2 text-sm cursor-pointer w-full min-w-36 text-left flex justify-between items-center"
             >
-                {clipLanguage ? clipLanguage : 'Languages'}
+                {clipLanguage ? languageFromPrefix(clipLanguage) : 'Language'}
                 <motion.div
                     variants={{
                         open: { rotate: 180 },
@@ -65,28 +67,39 @@ const ClipLanguage = () => {
                 style={{ pointerEvents: isOpen ? "auto" : "none" }}
             >
                 <motion.li variants={itemVariants}
-                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
-                    onClick={() => setClipLanguage("English")}>
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 flex'
+                    onClick={() => setClipLanguage("en")}>
+                    <US title="United States" className="w-[1rem] mr-2" />
                     English
                 </motion.li>
                 <motion.li variants={itemVariants}
-                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
-                    onClick={() => setClipLanguage("Polish")}>
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 flex'
+                    onClick={() => setClipLanguage("pl")}>
+                    <PL title="Poland" className="w-[1rem] mr-2" />
                     Polish
                 </motion.li>
                 <motion.li variants={itemVariants}
-                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
-                    onClick={() => setClipLanguage("German")}>
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 flex'
+                    onClick={() => setClipLanguage("de")}>
+                    <DE title="German" className="w-[1rem] mr-2" />
                     German
                 </motion.li>
                 <motion.li variants={itemVariants}
-                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
-                    onClick={() => setClipLanguage("French")}>
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 flex'
+                    onClick={() => setClipLanguage("de")}>
+                    <IT title="Italian" className="w-[1rem] mr-2" />
+                    Italian
+                </motion.li>
+                <motion.li variants={itemVariants}
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 flex'
+                    onClick={() => setClipLanguage("fr")}>
+                    <FR title="French" className="w-[1rem] mr-2" />
                     French
                 </motion.li>
                 <motion.li variants={itemVariants}
-                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 '
-                    onClick={() => setClipLanguage("Turkish")}>
+                    className='hover:bg-violet-700/15 cursor-pointer p-2.5 flex'
+                    onClick={() => setClipLanguage("tr")}>
+                    <TR title="Turkish" className="w-[1rem] mr-2" />
                     Turkish
                 </motion.li>
             </motion.ul>

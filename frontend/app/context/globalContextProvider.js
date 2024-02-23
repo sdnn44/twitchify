@@ -25,6 +25,12 @@ export const GlobalProvider = ({ children }) => {
     setModal(false);
   };
 
+  const filterClips = (clipsFiltered) => {
+    return clipLanguage
+      ? clipsFiltered.filter((clip) => clip.language === clipLanguage)
+      : clipsFiltered;
+  };
+
   return (
     <GlobalContext.Provider
       value={{
@@ -51,6 +57,7 @@ export const GlobalProvider = ({ children }) => {
         setEmbedURL,
         isLoading,
         setLoading,
+        filterClips,
       }}
     >
       <GlobalUpdateContext.Provider value={{}}>

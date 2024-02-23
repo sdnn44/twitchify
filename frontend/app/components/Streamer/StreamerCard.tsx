@@ -22,7 +22,7 @@ interface Prop {
 
 function StreamerCard({ streamer, index }: Prop) {
 
-    const { setStreamerId, setSearchedStreamerName, setLoading } = useGlobalState();
+    const { setStreamerId, setClipLanguage, setSearchedStreamerName, setLoading } = useGlobalState();
 
     return (
         <div
@@ -31,6 +31,7 @@ function StreamerCard({ streamer, index }: Prop) {
                 // setGameId(game.game_id);
                 setStreamerId(streamer.id);
                 setSearchedStreamerName(streamer.display_name);
+                setClipLanguage("");
                 setLoading(true);
             }
             }>

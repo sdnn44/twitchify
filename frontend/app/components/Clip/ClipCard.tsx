@@ -30,16 +30,20 @@ const VARIANTS = {
 }
 
 function ClipCard({ clip, index }: Prop) {
-  const { openModal, setEmbedURL } = useGlobalState();
 
+  const { openModal, clipLanguage, setEmbedURL } = useGlobalState();
+  console.log(index);
   return (
-
     <motion.div
       variants={VARIANTS}
       initial="hidden"
       animate="visible"
       transition={{
-        delay: ((index % 20) * 0.2),
+        //delay > 100 index * 0.15,
+        //delay > 200 index/200 * 0.15,
+        //delay > 200 index/300 * 0.15,
+        //delay > 200 index/400 * 0.15,
+        delay: (index%100) * 0.15,
         ease: 'easeInOut',
         duration: 0.5
       }}

@@ -57,7 +57,7 @@ app.use((err, req, res, next) => {
 app.get("/get-clips", async (req, res) => {
   try {
     const accessToken = await getToken();
-    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=743`;
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=743&first=100`;
 
     const clips = await twitchRequest(clipOptionsUrl, accessToken);
     res.json(clips);
@@ -70,7 +70,7 @@ app.get("/get-clips/:gameId/:periodTime?", async (req, res) => {
   try {
     const { gameId, periodTime } = req.params;
     const accessToken = await getToken();
-    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=${gameId}`;
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=${gameId}&first=100`;
 
     if (periodTime) {
       clipOptionsUrl += `&started_at=${periodTime}`;
@@ -87,7 +87,7 @@ app.get("/get-page/:gameId/:cursor/:periodTime?", async (req, res) => {
   try {
     const { gameId, cursor, periodTime } = req.params;
     const accessToken = await getToken();
-    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=${gameId}`;
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=${gameId}&first=100`;
 
     if (periodTime) {
       clipOptionsUrl += `&started_at=${periodTime}`;
@@ -121,7 +121,7 @@ app.get("/get-clips-by-broadcasterid/:broadcasterId/:periodTime?", async (req, r
   try {
     const { broadcasterId, periodTime } = req.params;
     const accessToken = await getToken();
-    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`;
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=100`;
 
     if (periodTime) {
       clipOptionsUrl += `&started_at=${periodTime}`;
@@ -138,7 +138,7 @@ app.get("/get-page-by-broadcasterid/:broadcasterId/:cursor/:periodTime?", async 
   try {
     const { broadcasterId, cursor, periodTime } = req.params;
     const accessToken = await getToken();
-    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}`;
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?broadcaster_id=${broadcasterId}&first=100`;
 
     if (periodTime) {
       clipOptionsUrl += `&started_at=${periodTime}`;

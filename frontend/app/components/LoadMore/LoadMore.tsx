@@ -7,11 +7,10 @@ import { useInView } from "react-intersection-observer";
 import ClipCard, { ClipProp } from "../Clip/ClipCard";
 
 function LoadMore() {
-  const { gameId, streamerId, periodTime, cursor, setCursor } = useGlobalState();
+  const { gameId, streamerId, periodTime, cursor, filterClips, setCursor } = useGlobalState();
   const { ref, inView } = useInView();
 
   const [data, setData] = useState<ClipProp[]>([]);
-  const [shouldFilterByLanguage, setShouldFilterByLanguage] = useState(false);
 
   useEffect(() => {
     if (inView) {
@@ -35,21 +34,14 @@ function LoadMore() {
     }
   }, [inView, data]);
 
-  
-  const toggleFilter = () => setShouldFilterByLanguage(!shouldFilterByLanguage); // Toggle filter
-
-  const filteredClips = shouldFilterByLanguage
-    ? data.filter((item: ClipProp) => item.language === 'pl')
-    : data;
-
   return (
     <>
       <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-        {filteredClips.map((item: ClipProp, index: number) => (
+        {filterClips(data).map((item: ClipProp, index: number) => (
           <ClipCard key={item.id} clip={item} index={index} />
         ))}
       </section>
-      <section className="flex justify-center items-center w-full border-2" onClick={toggleFilter}>
+      <section className="flex justify-center items-center w-full">
         <div ref={ref}>
           {cursor && <Image
             src="./spinner.svg"
