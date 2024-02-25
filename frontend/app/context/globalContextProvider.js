@@ -7,7 +7,7 @@ export const GlobalUpdateContext = createContext();
 export const GlobalProvider = ({ children }) => {
   const [clips, setClips] = useState([]);
   const [cursor, setCursor] = useState("");
-  const [gameId, setGameId] = useState("743");
+  const [gameId, setGameId] = useState("31336");
   const [gameInformation, setGameInformation] = useState("");
   const [streamerId, setStreamerId] = useState("");
   const [clipLanguage, setClipLanguage] = useState("");

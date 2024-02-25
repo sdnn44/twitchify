@@ -65,7 +65,7 @@ app.use((err, req, res, next) => {
 app.get("/get-clips", async (req, res) => {
   try {
     const accessToken = await getToken();
-    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=743&first=100`;
+    let clipOptionsUrl = `https://api.twitch.tv/helix/clips?game_id=31336&first=100`;
 
     const clips = await twitchRequest(clipOptionsUrl, accessToken);
     res.json(clips);
