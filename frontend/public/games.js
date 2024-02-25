@@ -44,9 +44,9 @@ export const games = [{
     },
     {
         id: 7,
-        game_name: "Dota 2",
-        game_img: "/29595.png",
-        game_id: "29595",
+        game_name: "Chess",
+        game_img: "/743.png",
+        game_id: "743",
         // onGameClick: handleGameClick
     },
     {

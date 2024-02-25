@@ -32,6 +32,7 @@ const VARIANTS = {
 function ClipCard({ clip, index }: Prop) {
 
   const { openModal, gameId, gameInformation, setEmbedURL } = useGlobalState();
+  console.log(gameInformation[0]);
   return (
     <motion.div
       variants={VARIANTS}
@@ -70,7 +71,7 @@ function ClipCard({ clip, index }: Prop) {
       <div className="p-1 flex flex-row gap-1 bg-[#161921]">
         <div className="flex">
           <Image
-            src={gameInformation.box_art_url}
+            src={`https://static-cdn.jtvnw.net/ttv-boxart/${clip.game_id}-100x150.jpg`}
             alt={clip.game_id.toString()}
             width={50}
             height={10}

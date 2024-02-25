@@ -36,7 +36,7 @@ const Clips = ({ title, clips }: ClipProps) => {
                     response = await fetchSpecificGame(gameId, periodLabel, periodTime);
                 }
                 const gameinfo = await fetchGameInfoById(gameId);
-                setGameInformation(gameinfo.data);
+                setGameInformation(gameinfo);
                 setClips(response.data);
                 setCursor(response.pagination.cursor);
             } catch (error) {

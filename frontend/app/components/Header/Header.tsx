@@ -11,12 +11,12 @@ function Header() {
 
   return (
     <header className="bg-hero bg-center bg-cover bg-no-repeat bg-gradient-to-tr from-[#0F1117] to-purple-800 from-50% sm:p-16 py-16 px-8 flex justify-center lg:items-center max-lg:flex-col w-full sm:gap-16 gap-0">
-      <div className="flex-1 flex flex-row md:flex-col md:items-start gap-5 sm:gap-10 justify-center items-center">
+      <div className="flex flex-2 flex-row md:flex-col md:items-start gap-5 sm:gap-10 justify-center items-center">
         <Image
           src="/twitch.png"
           alt="logo"
-          width={101}
-          height={96}
+          width={100}
+          height={100}
           className="object-contain"
         />
         <h1 className="sm:text-5xl text-5xl lg:max-w-lg font-bold leading-[120%] order">
