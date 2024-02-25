@@ -1,11 +1,19 @@
 // import dotenv from "dotenv";
 // dotenv.config();
 
-require("dotenv").config();
-const cors = require("cors");
+// require("dotenv").config();
+import dotenv from 'dotenv';
+import cors from "cors";
+import express from "express";
+import axios from "axios";
+
+dotenv.config();
+
+// const cors = require("cors");
 // const request = require("request");
-const express = require("express");
-const axios = require("axios");
+// const express = require("express");
+
+// const axios = require("axios");
 
 const app = express();
 const PORT = 3000; // Or any other port you prefer
@@ -147,6 +155,19 @@ app.get("/get-page-by-broadcasterid/:broadcasterId/:cursor/:periodTime?", async 
     if (cursor) {
       clipOptionsUrl += `&after=${cursor}`;
     }
+
+    const clips = await twitchRequest(clipOptionsUrl, accessToken);
+    res.json(clips);
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/get-gameinfo/:gameId", async (req, res) => {
+  try {
+    const { gameId } = req.params;
+    const accessToken = await getToken();
+    let clipOptionsUrl = `https://api.twitch.tv/helix/games?id=${gameId}`;
 
     const clips = await twitchRequest(clipOptionsUrl, accessToken);
     res.json(clips);

@@ -8,6 +8,7 @@ export const GlobalProvider = ({ children }) => {
   const [clips, setClips] = useState([]);
   const [cursor, setCursor] = useState("");
   const [gameId, setGameId] = useState("743");
+  const [gameInformation, setGameInformation] = useState("");
   const [streamerId, setStreamerId] = useState("");
   const [clipLanguage, setClipLanguage] = useState("");
   const [searchedStreamerName, setSearchedStreamerName] = useState("");
@@ -40,6 +41,8 @@ export const GlobalProvider = ({ children }) => {
         setCursor,
         gameId,
         setGameId,
+        gameInformation,
+        setGameInformation,
         streamerId,
         setStreamerId,
         clipLanguage,

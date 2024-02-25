@@ -31,8 +31,7 @@ const VARIANTS = {
 
 function ClipCard({ clip, index }: Prop) {
 
-  const { openModal, clipLanguage, setEmbedURL } = useGlobalState();
-  console.log(index);
+  const { openModal, gameId, gameInformation, setEmbedURL } = useGlobalState();
   return (
     <motion.div
       variants={VARIANTS}
@@ -43,7 +42,7 @@ function ClipCard({ clip, index }: Prop) {
         //delay > 200 index/200 * 0.15,
         //delay > 200 index/300 * 0.15,
         //delay > 200 index/400 * 0.15,
-        delay: (index%100) * 0.15,
+        delay: (index % 100) * 0.15,
         ease: 'easeInOut',
         duration: 0.5
       }}
@@ -71,7 +70,7 @@ function ClipCard({ clip, index }: Prop) {
       <div className="p-1 flex flex-row gap-1 bg-[#161921]">
         <div className="flex">
           <Image
-            src="/chess.jpg"
+            src={gameInformation.box_art_url}
             alt={clip.game_id.toString()}
             width={50}
             height={10}

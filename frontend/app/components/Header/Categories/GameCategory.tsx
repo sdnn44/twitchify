@@ -1,5 +1,5 @@
 "use client"
-import { fetchSpecificGame } from '@/app/api/fetchClips';
+import { fetchSpecificGame } from '@/app/api/clips/fetchClips';
 import { useGlobalState } from '@/app/context/globalContextProvider';
 import Image from 'next/image';
 import React from 'react'
@@ -41,7 +41,7 @@ const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
       >
         <div className='absolute lg:bg-violet-500 w-32 h-44 bg-transparent'></div>
         <Image
-          src={game.game_img}
+          src={`/${game.game_id}.png`}
           alt="logo"
           width={120}
           height={100}

@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useClickOutside } from 'react-click-outside-hook';
 import Loader from '../Loader/Loader';
 import { useDebounce } from '@/app/hooks/debounceHook';
-import { fetchStreamerByName } from '@/app/api/fetchStreamers';
+import { fetchStreamerByName } from '@/app/api/steamers/fetchStreamers';
 import StreamerCard, { StreamerProp } from '../Streamer/StreamerCard';
 
 const Searchbar = () => {

@@ -4,13 +4,14 @@ import ClipCard, { ClipProp } from "@/app/components/Clip/ClipCard";
 import LoadMore from "@/app/components/LoadMore/LoadMore";
 import React, { useEffect } from 'react'
 import { useGlobalState } from "@/app/context/globalContextProvider";
-import { fetchClips, fetchClipsByStreamerId, fetchSpecificGame } from "@/app/api/fetchClips";
 import Loader from "../Loader/Loader";
 import Filter from "./Fillters/Filter";
 import Searchbar from "../Searchbar/Searchbar";
 import StreamerInfoButton from "../Streamer/StreamerInfoButton";
 import ClipLanguage from "../ClipLanguage/ClipLanguage";
 import ClipLanguageButton from "../ClipLanguage/ClipLanguageButton";
+import { fetchClips, fetchClipsByStreamerId, fetchSpecificGame } from "@/app/api/clips/fetchClips";
+import { fetchGameInfoById } from "@/app/api/games/fetchGameInfo";
 
 interface ClipProps {
     title: string;
@@ -19,13 +20,14 @@ interface ClipProps {
 
 const Clips = ({ title, clips }: ClipProps) => {
 
-    const { gameId, streamerId, clipLanguage, periodLabel, periodTime, setClips, setCursor, isLoading, setLoading, filterClips } = useGlobalState();
+    const { gameId, setGameInformation, streamerId, clipLanguage, periodLabel, periodTime, setClips, setCursor, isLoading, setLoading, filterClips } = useGlobalState();
 
     // let clips = [];
     useEffect(() => {
         const fetchData = async () => {
             try {
                 let response;
+                
                 if (streamerId) {
                     response = await fetchClipsByStreamerId(streamerId, periodLabel, periodTime);
                 } else if (clips.length === 0) {
@@ -33,6 +35,8 @@ const Clips = ({ title, clips }: ClipProps) => {
                 } else {
                     response = await fetchSpecificGame(gameId, periodLabel, periodTime);
                 }
+                const gameinfo = await fetchGameInfoById(gameId);
+                setGameInformation(gameinfo.data);
                 setClips(response.data);
                 setCursor(response.pagination.cursor);
             } catch (error) {

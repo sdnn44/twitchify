@@ -1,5 +1,5 @@
 "use client";
-import { fetchNextPageForGame, fetchNextPageForStreamer } from "@/app/api/fetchClips";
+import { fetchNextPageForGame, fetchNextPageForStreamer } from "@/app/api/clips/fetchClips";
 import { useGlobalState } from "@/app/context/globalContextProvider";
 import Image from "next/image";
 import { useEffect, useState } from "react";

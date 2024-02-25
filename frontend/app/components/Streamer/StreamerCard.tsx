@@ -1,4 +1,4 @@
-import { fetchSpecificGame } from '@/app/api/fetchClips';
+import { fetchSpecificGame } from '@/app/api/clips/fetchClips';
 import { useGlobalState } from '@/app/context/globalContextProvider';
 import Image from 'next/image';
 import React from 'react'
