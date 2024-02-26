@@ -9,7 +9,7 @@ const DisplayClip = () => {
 
   return (
     <div className="aspect-w-16 aspect-h-9 z-50">
-      <iframe src={`${embedURL}&parent=localhost`}  width="640" height="360" frameBorder="0" allow="fullscreen; picture-in-picture" allowFullScreen></iframe>
+      <iframe src={`${embedURL}&parent=twitchify.vercel.app`}  width="640" height="360" frameBorder="0" allow="fullscreen; picture-in-picture" allowFullScreen></iframe>
     </div>
   )
 }

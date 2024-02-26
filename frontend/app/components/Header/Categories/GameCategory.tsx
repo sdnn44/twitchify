@@ -39,7 +39,7 @@ const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
         }
         }
       >
-        <div className='absolute lg:bg-violet-500 w-32 h-44 bg-transparent'></div>
+        <div className='absolute lg:bg-violet-500 w-40 h-52 bg-transparent'></div>
         <Image
           src={`/${game.game_id}.png`}
           alt="logo"
@@ -49,7 +49,7 @@ const GameCategory = ({ game /**onGameClick**/ }: Prop) => {
         />
       </div>
 
-      <h2 className='text-sm text-white font-bold hover:text-purple-400 cursor-pointer transition'>{game.game_name}</h2>
+      <h2 className='text-lg text-violet-400 lg:text-sm lg:text-white font-bold hover:text-purple-400 cursor-pointer transition'>{game.game_name}</h2>
     </motion.div>
   )
 }

@@ -12,6 +12,7 @@ import ClipLanguage from "../ClipLanguage/ClipLanguage";
 import ClipLanguageButton from "../ClipLanguage/ClipLanguageButton";
 import { fetchClips, fetchClipsByStreamerId, fetchSpecificGame } from "@/app/api/clips/fetchClips";
 import { fetchGameInfoById } from "@/app/api/games/fetchGameInfo";
+import ClipError from "./ClipError";
 
 interface ClipProps {
     title: string;
@@ -27,7 +28,7 @@ const Clips = ({ title, clips }: ClipProps) => {
         const fetchData = async () => {
             try {
                 let response;
-                
+
                 if (streamerId) {
                     response = await fetchClipsByStreamerId(streamerId, periodLabel, periodTime);
                 } else if (clips.length === 0) {
@@ -61,13 +62,15 @@ const Clips = ({ title, clips }: ClipProps) => {
             {streamerId && <StreamerInfoButton />}
             {clipLanguage && <ClipLanguageButton />}
             {isLoading ? (<Loader />) : (
-                <>
-                    <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
-                        {filterClips(clips).map((item: ClipProp, index: number) => (
-                            <ClipCard key={item.id} clip={item} index={index} />
-                        ))}
-                    </section>
-                    <LoadMore />
+                <> {filterClips(clips).length === 0 ? <ClipError /> : (
+                    <>
+                        <section className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-10">
+                            {filterClips(clips).map((item: ClipProp, index: number) => (
+                                <ClipCard key={item.id} clip={item} index={index} />
+                            ))}
+                        </section><LoadMore />
+                    </>
+                )}
                 </>
             )
             }

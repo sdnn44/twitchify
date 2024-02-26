@@ -17,9 +17,9 @@ function Header() {
           alt="logo"
           width={100}
           height={100}
-          className="object-contain"
+          className="object-contain" 
         />
-        <h1 className="sm:text-5xl text-5xl lg:max-w-lg font-bold leading-[120%] order">
+        <h1 className="sm:text-5xl text-3xl lg:max-w-lg font-bold leading-[120%] order">
           Daily dose of <span className="violet-gradient">Twitch.tv </span>
           clips
         </h1>

@@ -5,6 +5,11 @@
 @import "tailwindcss/utilities";
 
 @font-face {
+  font-family: 'Poppins-Medium';
+  src: local('Poppins-Medium'), url(../public/fonts/Poppins/Poppins-Medium.ttf) format('truetype');
+}
+
+@font-face {
   font-family: 'Poppins-Regular';
   src: local('Poppins-Regular'), url(../public/fonts/Poppins/Poppins-Regular.ttf) format('truetype');
 }
@@ -14,9 +19,31 @@
   src: local('Inter-Regular'), url(../public/fonts/Inter/static/Inter-Regular.ttf) format('truetype');
 }
 
+* {
+  scrollbar-width: none;
+  scrollbar-color: #8f54a0 #b0abab;
+}
+
 body {
   background-color: #000;
 }
+
+/* Chrome, Edge, and Safari */
+body::-webkit-scrollbar {
+  width: 7px;
+  height: 5px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #0F1117;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #6b21a8 ;
+  border-radius: 0px;
+  border: 3px none #ffffff;
+}
+
 
 .poppins-regular {
   font-family: 'Inter-Regular';

@@ -32,7 +32,6 @@ const VARIANTS = {
 function ClipCard({ clip, index }: Prop) {
 
   const { openModal, gameId, gameInformation, setEmbedURL } = useGlobalState();
-  console.log(gameInformation[0]);
   return (
     <motion.div
       variants={VARIANTS}
@@ -48,7 +47,7 @@ function ClipCard({ clip, index }: Prop) {
         duration: 0.5
       }}
       viewport={{ amount: 0 }}
-      className="rounded relative w-full z-0 shadow-violet-500/80 shadow" /*max-w-sm*/
+      className="relative w-full z-0 shadow-violet-500/50 shadow rounded-xl" /*max-w-sm*/
       onClick={() => {
         openModal();
         setEmbedURL(clip.embed_url);
@@ -59,7 +58,7 @@ function ClipCard({ clip, index }: Prop) {
           alt={clip.broadcaster_name}
           width={300}
           height={250}
-          className="w-full h-auto rounded-xl hover:scale-110 transition ease-in duration-300 cursor-pointer"
+          className="w-full h-auto rounded-t-xl hover:scale-110 transition ease-in duration-300 cursor-pointer"
         />
         <div className="bg-[#161921e7] text-xs font-bold p-1 px-3 rounded-xl absolute top-1 left-1">
           <p className=""><RemoveRedEyeIcon sx={{ fontSize: 14, mr: 1 }} />{clip.view_count.toLocaleString()}</p>
@@ -67,23 +66,23 @@ function ClipCard({ clip, index }: Prop) {
         <div className="bg-[#161921e7] text-xs font-bold p-1 px-3 rounded-xl absolute top-1 right-1">
           <p>{formatTime(clip.duration)}</p>
         </div>
-      </div> 
-      <div className="p-1 flex flex-row gap-1 bg-[#161921] cursor-pointer ">
+      </div>
+      <div className="p-1 flex flex-row gap-1 bg-[#161921] cursor-pointer rounded-b-xl">
         <div className="flex">
           <Image
             src={`https://static-cdn.jtvnw.net/ttv-boxart/${clip.game_id}-100x150.jpg`}
             alt={clip.game_id.toString()}
             width={50}
             height={10}
-            className=""
+            className="rounded-lg h-full"
           />
         </div>
-        <div className="flex flex-col justify-between items-center gap-1 ">
+        <div className="flex flex-col justify-between items-center gap-1">
           <div className="py-1 px-2 rounded-sm h-full w-full">
-            <p className="text-white text-sm font-bold w-full capitalize py-1 line-clamp-1 hover:text-violet-400 ease-in-out duration-300" title={clip.title}>
+            <p className="text-sm font-bold w-full capitalize py-1 line-clamp-1 text-violet-400 hover:text-violet-500 ease-in-out duration-300" title={clip.title}>
               {clip.title.length > 20 ? `${clip.title.slice(0, 20)}...` : clip.title}
             </p>
-            <p className="text-white text-xs line-clamp-1 w-full">
+            <p className="text-white text-xs line-clamp-1 w-full font-semibold ">
               {clip.broadcaster_name}
             </p>
             <h2 className="text-white text-xs line-clamp-1 w-full">
